@@ -25,14 +25,14 @@ public class ListenerDemo {
   @Bean
   public Job listenerJob() {
     return this.jobBuilderFactory.get("listenerJob")
-        .start(this.step1())
+        .start(this.listenerStep1())
         .listener(new MyJobListener())
         .build();
   }
 
   @Bean
-  public Step step1() {
-    return this.stepBuilderFactory.get("step1")
+  public Step listenerStep1() {
+    return this.stepBuilderFactory.get("listenerStep1")
         .<String, String>chunk(2) // read, process, write
         .faultTolerant()
         .listener(new MyChunkListener())
