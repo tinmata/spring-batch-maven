@@ -3,8 +3,6 @@ package com.example.batch;
 import com.example.listener.MyChunkListener;
 import com.example.listener.MyJobListener;
 import java.util.Arrays;
-import java.util.List;
-import javax.xml.bind.SchemaOutputResolver;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
