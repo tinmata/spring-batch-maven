@@ -35,9 +35,10 @@ public class ItemReaderDbDemo {
 
   @Bean
   public Job itemReaderDbJob() {
-    return jobBuilderFactory.get("itemReaderDbJob")
+    return jobBuilderFactory.get("itemReaderDbJob01")
         .incrementer(new RunIdIncrementer())
-        .start(this.itemReaderDbStep01())
+        .flow(this.itemReaderDbStep01())
+        .end()
         .build();
   }
 
@@ -46,6 +47,7 @@ public class ItemReaderDbDemo {
     return stepBuilderFactory.get("itemReaderDbStep01")
         .<User, User>chunk(2)
         .reader(this.dbJdbcReader())
+        .processor(dbJdbcPorcessor())
         .writer(this.dbJdbcWriter)
         .build();
   }
@@ -81,5 +83,10 @@ public class ItemReaderDbDemo {
 
     reader.setQueryProvider(provider);
     return reader;
+  }
+
+  @Bean
+  public ItemReaderDbPorcessor dbJdbcPorcessor() {
+    return new ItemReaderDbPorcessor();
   }
 }
