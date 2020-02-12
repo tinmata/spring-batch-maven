@@ -9,4 +9,4 @@ spring:
   batch:
     job:
       enabled: true
-      names: userExportJob
+      names: exportUserJob

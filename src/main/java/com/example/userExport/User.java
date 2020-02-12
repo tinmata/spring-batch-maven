@@ -1,57 +1,36 @@
 package com.example.userExport;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import lombok.Data;
 
-@Entity
-@Table(name = "user")
+//@Entity
+//@Table(name = "user")
 @Data
+//@Getter
+//@Setter
 public class User {
 
-  @Id
-  @Column(name = "username")
-  public String username;
-  @Column(name = "password")
-  public String password;
-  @Column(name = "firstname")
-  public String firstName;
-  @Column(name = "lastname")
-  public String lastName;
-
-  public String getUsername() {
-    return username;
+  public User() {
   }
 
-  public void setUsername(String username) {
+  public User(String username, String password, String firstName, String lastName) {
     this.username = username;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
     this.password = password;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
     this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
     this.lastName = lastName;
   }
+
+  //  @Id
+//  @Column(name = "username")
+  public String username;
+
+  //  @Column(name = "password")
+  public String password;
+
+  //  @Column(name = "firstname")
+  public String firstName;
+
+  //  @Column(name = "lastname")
+  public String lastName;
 
   @Override
   public String toString() {
