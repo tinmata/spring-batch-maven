@@ -1,5 +1,6 @@
-package jp.co.fly.job.usersExport;
+package jp.co.fly.job.usersImport;
 
+import jp.co.fly.job.usersExport.ExportUsersJobListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
@@ -15,25 +16,15 @@ import org.springframework.stereotype.Component;
  * @since 2020/2/12
  */
 @Component
-public class ExportUsersJobListener implements JobExecutionListener {
+public class ImportUsersJobListener implements JobExecutionListener {
 
   private static final Logger log = LoggerFactory.getLogger(ExportUsersJobListener.class);
 
-  /**
-   * ジョブ前処理
-   *
-   * @param jobExecution
-   */
   @Override
   public void beforeJob(JobExecution jobExecution) {
     log.info("JOB Start .....");
   }
 
-  /**
-   * ジョブ後処理
-   *
-   * @param jobExecution
-   */
   @Override
   public void afterJob(JobExecution jobExecution) {
     log.info("JOB End .....");

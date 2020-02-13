@@ -23,4 +23,9 @@ public class Consts {
    * 出力ファイル拡張子：csv
    */
   public static final String FILE_SURFFIX = ".csv";
+
+  /**
+   * データベース接続Mapperリソース格納パス
+   */
+  public static final String MAPPER_RESOURCE_PATH = "jp/co/fly/model/mapper/*.xml";
 }

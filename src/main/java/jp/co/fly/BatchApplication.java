@@ -1,7 +1,5 @@
 package jp.co.fly;
 
-import org.springframework.batch.core.launch.support.CommandLineJobRunner;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2020/2/12
  */
 @SpringBootApplication
-public class BatchApplication implements CommandLineRunner {
+public class BatchApplication {
 
   /**
    * SpringBootBatch入り口
@@ -23,10 +21,5 @@ public class BatchApplication implements CommandLineRunner {
    */
   public static void main(String[] args) throws Exception {
     SpringApplication.run(BatchApplication.class, args);
-  }
-
-  @Override
-  public void run(String... args) throws Exception {
-    CommandLineJobRunner.main(new String[]{"jp.co.fly.JobConfig",""});
   }
 }

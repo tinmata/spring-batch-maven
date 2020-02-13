@@ -6,6 +6,12 @@ import javax.sql.DataSource;
 import jp.co.fly.model.entity.UsersEntity;
 import jp.co.fly.model.mapper.UsersRowMapper;
 import jp.co.fly.repository.UsersRepository;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.batch.MyBatisCursorItemReader;
+import org.mybatis.spring.batch.MyBatisPagingItemReader;
+import org.mybatis.spring.batch.builder.MyBatisCursorItemReaderBuilder;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
@@ -23,11 +29,26 @@ import org.springframework.stereotype.Component;
 public class ExportUsersReader {
 
   /**
+   * MyBatis(Cursor)によるReaderの実装例
+   *
+   * @param sqlSessionFactory
+   * @return MyBatisCursorItemReader
+   */
+  @StepScope
+  public ItemReader<UsersEntity> myBatisReader(SqlSessionFactory sqlSessionFactory) {
+    return new MyBatisCursorItemReaderBuilder<UsersEntity>()
+        .sqlSessionFactory(sqlSessionFactory)
+        .queryId("jp.co.fly.model.mapper.UserMapper.findAll")
+        .build();
+  }
+
+  /**
    * JPAによるReaderの実装例
    *
    * @param usersRepository
-   * @return
+   * @return RepositoryItemReader
    */
+  @StepScope
   public ItemReader<UsersEntity> jpaReader(UsersRepository usersRepository) {
     RepositoryItemReader<UsersEntity> reader = new RepositoryItemReader<>();
 
@@ -44,8 +65,9 @@ public class ExportUsersReader {
    * JDBC(Cursor)によるReaderの実装例
    *
    * @param dataSource
-   * @return
+   * @return JdbcCursorItemReader
    */
+  @StepScope
   public ItemReader<UsersEntity> jdbcReader(DataSource dataSource) {
     JdbcCursorItemReader<UsersEntity> usersReader = new JdbcCursorItemReader<>();
 

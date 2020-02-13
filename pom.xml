@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>Spring Batch build by Maven</name>
-  <description></description>
+  <description/>
   <inceptionYear>2020</inceptionYear>
 
   <parent>
@@ -25,7 +25,7 @@
       <id>central</id>
       <name>Maven Central repository</name>
       <url>https://repo.maven.apache.org/maven2/</url>
-      <releases></releases>
+      <releases/>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -37,7 +37,9 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java-version>1.8</java-version>
     <spring-ver>2.2.4.RELEASE</spring-ver>
-    <mysql-ver>8.0.18</mysql-ver>
+    <mybatis-ver>3.5.4</mybatis-ver>
+    <mybatis-spring-ver>2.0.3</mybatis-spring-ver>
+    <mybatis-spring-starter-ver>2.1.1</mybatis-spring-starter-ver>
     <junit-ver>4.13</junit-ver>
     <lombok-ver>1.18.10</lombok-ver>
   </properties>
@@ -63,15 +65,21 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>${spring-ver}</version>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis-ver}</version>
     </dependency>
 
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql-ver}</version>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>${mybatis-spring-ver}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>${mybatis-spring-starter-ver}</version>
     </dependency>
 
     <dependency>
@@ -80,5 +88,19 @@
       <version>${lombok-ver}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- 検証用ライブラリ START -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>${spring-ver}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.18</version>
+    </dependency>
+    <!-- 検証用ライブラリ END -->
   </dependencies>
 </project>

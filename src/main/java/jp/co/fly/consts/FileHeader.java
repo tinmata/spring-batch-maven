@@ -9,7 +9,14 @@ package jp.co.fly.consts;
  */
 public enum FileHeader {
   /**
-   * 出力ファイル項目
+   * ファイル項目定義
    */
-  username, firstName, lastName, age, tel, prefName, address;
+  username,                   // 入出力
+  password,                   // 入力
+  firstName,                  // 入出力
+  lastName,                   // 入出力
+  age,                        // 出力
+  tel,                        // 出力
+  prefName,                   // 出力
+  address;                    // 出力
 }

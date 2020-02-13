@@ -3,6 +3,7 @@ package jp.co.fly.job.usersExport;
 import jp.co.fly.consts.Consts;
 import jp.co.fly.consts.FileHeader;
 import jp.co.fly.model.entity.ExportUsersEntity;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
@@ -34,9 +35,9 @@ public class ExportUsersWriter {
   /**
    * FlatFileItemWriterによるCSVファイル書き込み処理実装例
    *
-   * @return
+   * @return FlatFileItemWriter
    */
-  public FlatFileItemWriter<ExportUsersEntity> writer() {
+  public ItemWriter<ExportUsersEntity> writer() {
 
     DelimitedLineAggregator<ExportUsersEntity> lineAggregator = new DelimitedLineAggregator<>();
     lineAggregator.setDelimiter(Consts.DELIMITER);

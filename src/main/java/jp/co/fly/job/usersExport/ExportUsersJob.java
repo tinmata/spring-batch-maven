@@ -1,14 +1,12 @@
 package jp.co.fly.job.usersExport;
 
-import javax.sql.DataSource;
+import jp.co.fly.job.JobConfig;
 import jp.co.fly.model.entity.ExportUsersEntity;
 import jp.co.fly.model.entity.UsersEntity;
 import jp.co.fly.repository.UsersRepository;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +14,10 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * ジョブ＆ステップの実装例
+ * <pre>
+ *   入力：データベース
+ *   出力：CSVファイル
+ * </pre>
  *
  * @author YuChen
  * @version 1.0
@@ -23,18 +25,12 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableBatchProcessing
-public class ExportUsersJob {
+public class ExportUsersJob extends JobConfig {
 
   @Autowired
-  private JobBuilderFactory jobBuilderFactory;
+  protected ExportUsersJobListener jobListener;
   @Autowired
-  private ExportUsersJobListener jobListener;
-  @Autowired
-  private StepBuilderFactory stepBuilderFactory;
-  @Autowired
-  private ExportUsersStepListener stepListener;
-  @Autowired
-  private DataSource dataSource;
+  protected ExportUsersStepListener stepListener;
   @Autowired
   private UsersRepository usersRepository;
   @Autowired
@@ -45,33 +41,44 @@ public class ExportUsersJob {
   private ExportUsersWriter exportUsersWriter;
 
   /**
-   * ジョブ定義
+   * ステップ定義
    *
-   * @return
+   * @return org.springframework.batch.core.Step
+   * @throws Exception
    */
   @Bean
-  public Job exportUserJob() {
-    return this.jobBuilderFactory.get("exportUserJob")
-        .incrementer(new RunIdIncrementer())
-        .listener(jobListener)
-        .flow(exportUserStep01())
-        .end()
+  public Step exportUserStep01() throws Exception {
+    return stepBuilderFactory.get("exportUserStep01")
+        // チャンクによるステップ処理を実装
+        .<UsersEntity, ExportUsersEntity>chunk(5)
+        // ステップ前後処理のリスナーを設定
+        .listener(stepListener)
+        // MyBatisとMapper定義でDBに接続
+        .reader(exportUsersReader.myBatisReader(sqlSessionFactory()))
+        // JPAによるDBに接続
+        //.reader(exportUsersReader.jpaReader(usersRepository))
+        // JDBCによるDBに接続
+        //.reader(exportUsersReader.jdbcReader(dataSource))
+        .processor(exportUsersProcessor)
+        .writer(exportUsersWriter.writer())
         .build();
   }
 
   /**
-   * ステップ定義
+   * ジョブ定義
    *
-   * @return
+   * @return org.springframework.batch.core.Job
+   * @throws Exception
    */
   @Bean
-  public Step exportUserStep01() {
-    return this.stepBuilderFactory.get("exportUserStep01")
-        .<UsersEntity, ExportUsersEntity>chunk(5)
-        .listener(stepListener)
-        .reader(exportUsersReader.jpaReader(usersRepository))
-        .processor(exportUsersProcessor)
-        .writer(exportUsersWriter.writer())
+  public Job exportUserJob() throws Exception {
+    return jobBuilderFactory.get("exportUserJob")
+        // ジョブ実行時にランダムなパラメータを渡す
+        .incrementer(new RunIdIncrementer())
+        // ジョブ前後処理のリスナーを設定
+        .listener(jobListener)
+        .flow(exportUserStep01())
+        .end()
         .build();
   }
 }

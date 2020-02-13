@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.fly.model.mapper.UserDao">
+  <insert id="createUser" parameterType="jp.co.fly.model.entity.UsersEntity">
+    insert into user (username, password, firstname, lastname)
+    values (#{username}, #{password}, #{firstName}, #{lastName})
+    on duplicate key update
+    username = #{username},
+    password = #{password},
+    firstname = #{firstName},
+    lastname = #{lastName}
+  </insert>
+</mapper>
