@@ -1,8 +1,9 @@
+# Spring Batch Setting
 spring:
   # データベース接続文字列
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/testdb
+    url: jdbc:mysql://localhost:3306/testdb?useUnicode=true&characterEncoding=utf8
     username: test
     password: 5ql@dmin2019
   # ジョブ名で実行制御
@@ -11,7 +12,7 @@ spring:
       enabled: true
       #IDE実行時にジョブ名指定
       names: importJob
-
-logging:
-  level:
-    jp.co.fly.model.mapper.PrefectureDao: debug
+# Log Setting
+#logging:
+#  level:
+#    jp.co.fly.model.mapper.PrefectureDao: debug
