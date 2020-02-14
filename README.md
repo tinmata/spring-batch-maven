@@ -20,7 +20,7 @@ Spring Batch (Spring Boot)
 
 # ジョブ
     ・実行可能ジョブ名
-      # importUserJob
+      # importJob
         CSVファイルを読み込み、DBへ書き込む
       # exportUserJob
         DBにあるレコードを取り込み、ｃｓｖファイルへ書き出す
@@ -30,7 +30,7 @@ Spring Batch (Spring Boot)
       $ cd Projectフォルダ/target
 
     2. importUserJobを実行する
-      $ java -jar .\spring-batch-maven.jar --spring.batch.job.names=importUserJob
+      $ java -jar .\spring-batch-maven.jar --spring.batch.job.names=importJob
 
     3. exportUserJobを実行する
       $ java -jar .\spring-batch-maven.jar --spring.batch.job.names=exportUserJob
