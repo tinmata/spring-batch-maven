@@ -1,12 +1,13 @@
 spring:
-
+  # データベース接続文字列
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/testdb
     username: test
     password: 5ql@dmin2019
-
+  # ジョブ名で実行制御
   batch:
     job:
       enabled: true
-      names: exportUserJob
+      #IDE実行時にジョブ名指定
+      #names: importUserJob

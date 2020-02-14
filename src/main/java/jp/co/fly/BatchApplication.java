@@ -1,5 +1,6 @@
 package jp.co.fly;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2020/2/12
  */
 @SpringBootApplication
+@Slf4j
 public class BatchApplication {
 
   /**
@@ -20,6 +22,11 @@ public class BatchApplication {
    * @throws Exception
    */
   public static void main(String[] args) throws Exception {
-    SpringApplication.run(BatchApplication.class, args);
+    try {
+      System.exit(SpringApplication.exit(SpringApplication.run(BatchApplication.class, args)));
+    } catch (Exception e) {
+      System.out.println("critical error!!");
+      System.exit(1);
+    }
   }
 }

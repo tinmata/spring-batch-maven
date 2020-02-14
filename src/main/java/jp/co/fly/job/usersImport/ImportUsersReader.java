@@ -23,7 +23,7 @@ public class ImportUsersReader {
   /**
    * 入力ファイルのパスとファイル名の定義。
    */
-  private static final String INPUT = Consts.FILE_PATH + "user_list" + Consts.FILE_SURFFIX;
+  private static final String INPUT = Consts.INPUT_FILE_PATH + "user_list" + Consts.FILE_SURFFIX;
 
   /**
    * 入力ファイルのヘッダーの定義。

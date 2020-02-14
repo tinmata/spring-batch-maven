@@ -15,9 +15,14 @@ public class Consts {
   public static final String DELIMITER = ",";
 
   /**
+   * CSVファイル入力パス
+   */
+  public static final String INPUT_FILE_PATH = "input/";
+
+  /**
    * CSVファイル出力パス
    */
-  public static final String FILE_PATH = "target/";
+  public static final String OUTUT_FILE_PATH = "output/";
 
   /**
    * 出力ファイル拡張子：csv
@@ -28,4 +33,14 @@ public class Consts {
    * データベース接続Mapperリソース格納パス
    */
   public static final String MAPPER_RESOURCE_PATH = "jp/co/fly/model/mapper/*.xml";
+
+  /**
+   * 一般ログ（INFO、WARN、DEBUGなど）出力パス
+   */
+  public static final String DEFAULT_LOG_PATH = "logs/";
+
+  /**
+   * エラーログ（ERROR）出力パス
+   */
+  public static final String ERROR_LOG_PATH = "logs/";
 }

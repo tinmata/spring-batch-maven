@@ -23,7 +23,7 @@ public class ExportUsersWriter {
   /**
    * ファイル出力時のパスとファイル名の定義。
    */
-  private static final String OUTPUT = Consts.FILE_PATH + "UserList" + Consts.FILE_SURFFIX;
+  private static final String OUTPUT = Consts.OUTUT_FILE_PATH + "UserList" + Consts.FILE_SURFFIX;
 
   /**
    * 出力ファイルのヘッダーの定義。

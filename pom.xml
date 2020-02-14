@@ -3,14 +3,16 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>org.example</groupId>
   <artifactId>spring-batch-maven</artifactId>
-  <version>1.0-SNAPSHOT</version>
+
+  <!-- Output to jar format -->
   <packaging>jar</packaging>
 
+  <version>1.0-SNAPSHOT</version>
   <name>Spring Batch build by Maven</name>
   <description/>
+  <url/>
   <inceptionYear>2020</inceptionYear>
 
   <parent>
@@ -35,13 +37,18 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java-version>1.8</java-version>
+
     <spring-ver>2.2.4.RELEASE</spring-ver>
     <mybatis-ver>3.5.4</mybatis-ver>
     <mybatis-spring-ver>2.0.3</mybatis-spring-ver>
     <mybatis-spring-starter-ver>2.1.1</mybatis-spring-starter-ver>
     <junit-ver>4.13</junit-ver>
     <lombok-ver>1.18.10</lombok-ver>
+
+    <java-version>1.8</java-version>
+    <maven-compiler-plugin-ver>3.8.1</maven-compiler-plugin-ver>
+    <maven-jar-plugin-ver>3.1.0</maven-jar-plugin-ver>
+    <maven-dependency-plugin-ver>3.1.1</maven-dependency-plugin-ver>
   </properties>
 
   <dependencies>
@@ -89,7 +96,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- 検証用ライブラリ START -->
+    <!-- Libraries for PoC START -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -101,6 +108,63 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.18</version>
     </dependency>
-    <!-- 検証用ライブラリ END -->
+    <!-- Libraries for PoC END -->
   </dependencies>
+
+  <!-- Maven Build Setting -->
+  <build>
+    <!-- Set package name -->
+    <finalName>spring-batch-maven</finalName>
+    <plugins>
+      <!-- Set a JDK compiler level -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin-ver}</version>
+        <configuration>
+          <source>${java-version}</source>
+          <target>${java-version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+
+      <!-- Make this jar executable -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin-ver}</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <!-- Jar file entry point -->
+              <mainClass>jp.co.fly.BatchApplication</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>dependency-jars/</classpathPrefix>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <!-- Copy project dependency -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>${maven-dependency-plugin-ver}</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <!-- exclude junit, we need runtime dependency only -->
+              <includeScope>runtime</includeScope>
+              <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
