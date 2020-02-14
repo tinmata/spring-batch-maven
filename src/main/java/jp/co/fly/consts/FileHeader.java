@@ -15,8 +15,10 @@ public enum FileHeader {
   password,                   // 入力
   firstName,                  // 入出力
   lastName,                   // 入出力
-  age,                        // 出力
-  tel,                        // 出力
-  prefName,                   // 出力
-  address;                    // 出力
+  age,                        // 入出力
+  tel,                        // 入出力
+  address,                    // 入出力
+  prefId,                     // 入出力
+  prefName,                   // 入出力
+  prefCaptial;                // 入出力
 }
