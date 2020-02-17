@@ -8,4 +8,15 @@
     from user_info
     where username = #{username}
   </select>
+
+  <insert id="createUserInfo" parameterType="jp.co.fly.model.entity.UsersInfoEntity">
+    insert into user_info (username, age, tel, pref_id, address)
+    values (#{username}, #{age}, #{tel}, #{prefId}, #{address})
+    on duplicate key update
+    username = #{username},
+    age = #{age},
+    tel = #{tel},
+    pref_id = #{prefId},
+    address = #{address}
+  </insert>
 </mapper>

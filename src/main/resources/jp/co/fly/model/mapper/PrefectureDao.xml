@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.fly.model.mapper.PrefectureDao">
+  <insert id="createPrefecture" parameterType="jp.co.fly.model.entity.PrefectureEntity">
+    insert into mst_prefecture (pref_id, pref_name, pref_capital)
+    values (#{prefId}, #{prefName}, #{prefCapital})
+    on duplicate key update
+    pref_id = #{prefId},
+    pref_name = #{prefName},
+    pref_capital = #{prefCapital}
+  </insert>
+</mapper>

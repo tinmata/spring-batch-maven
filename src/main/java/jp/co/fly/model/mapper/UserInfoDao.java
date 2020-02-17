@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserInfoDao {
 
   UsersInfoEntity findByKey(String username);
+
+  void createUserInfo(UsersInfoEntity usersInfoEntity);
 }
