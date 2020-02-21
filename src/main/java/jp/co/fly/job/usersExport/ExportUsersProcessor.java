@@ -5,6 +5,7 @@ import jp.co.fly.model.entity.ExportUsersEntity;
 import jp.co.fly.model.entity.PrefectureEntity;
 import jp.co.fly.model.entity.UsersEntity;
 import jp.co.fly.model.entity.UsersInfoEntity;
+import jp.co.fly.model.mapper.PrefectureDao;
 import jp.co.fly.model.mapper.UserInfoDao;
 import jp.co.fly.model.mapper.UserInfoMapper;
 import jp.co.fly.repository.PrefectureRepository;
@@ -26,6 +27,8 @@ public class ExportUsersProcessor implements ItemProcessor<UsersEntity, ExportUs
   // MyBatisによるDB接続時のMapper
   @Autowired
   private UserInfoDao userInfoDao;
+  @Autowired
+  private PrefectureDao prefectureDao;
 
   // MyBatis-SpringによるDB接続時のMapper
   @Autowired
@@ -78,6 +81,13 @@ public class ExportUsersProcessor implements ItemProcessor<UsersEntity, ExportUs
       userInfo.age = usersInfoEntity.age;
       userInfo.tel = usersInfoEntity.tel;
       userInfo.address = usersInfoEntity.address;
+
+      PrefectureEntity prefectureEntity = prefectureDao.findByKey(usersInfoEntity.prefId);
+      if (null != prefectureEntity) {
+        userInfo.prefName = prefectureEntity.prefName;
+        userInfo.address =
+            userInfo.address.isEmpty() ? prefectureEntity.prefCapital : userInfo.address;
+      }
     }
     return userInfo;
   }

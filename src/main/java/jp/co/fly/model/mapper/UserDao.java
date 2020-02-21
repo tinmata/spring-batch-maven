@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserDao {
 
   void createUser(UsersEntity usersEntity);
+
+  void deleteAll();
 }

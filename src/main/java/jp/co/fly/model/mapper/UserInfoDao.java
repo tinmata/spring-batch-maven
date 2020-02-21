@@ -9,4 +9,6 @@ public interface UserInfoDao {
   UsersInfoEntity findByKey(String username);
 
   void createUserInfo(UsersInfoEntity usersInfoEntity);
+
+  void deleteAll();
 }

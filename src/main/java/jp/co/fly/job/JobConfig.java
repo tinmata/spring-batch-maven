@@ -47,7 +47,7 @@ public class JobConfig {
    * @throws Exception
    */
   @Bean
-  public SqlSessionFactory sqlSessionFactory() throws Exception {
+  protected SqlSessionFactory sqlSessionFactory() throws Exception {
 
     // SpringのSqlSessionFactoryBean
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();

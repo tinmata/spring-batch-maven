@@ -11,8 +11,8 @@ spring:
     job:
       enabled: true
       #IDE実行時にジョブ名指定
-      names: importJob
-# Log Setting
+#      names: importJob
+  # Log4j Setting
 #logging:
 #  level:
 #    jp.co.fly.model.mapper.PrefectureDao: debug

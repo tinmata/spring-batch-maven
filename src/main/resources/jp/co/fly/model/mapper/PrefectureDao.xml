@@ -2,12 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.fly.model.mapper.PrefectureDao">
+  <select id="findByKey" parameterType="String" resultType="jp.co.fly.model.entity.PrefectureEntity">
+    <![CDATA[
+      select
+        pref_id as prefIf,
+        pref_name as prefName,
+        pref_capital as prefCapital
+      from
+        mst_prefecture
+      where
+        pref_id = #{prefId}
+    ]]>
+  </select>
+
   <insert id="createPrefecture" parameterType="jp.co.fly.model.entity.PrefectureEntity">
-    insert into mst_prefecture (pref_id, pref_name, pref_capital)
-    values (#{prefId}, #{prefName}, #{prefCapital})
-    on duplicate key update
-    pref_id = #{prefId},
-    pref_name = #{prefName},
-    pref_capital = #{prefCapital}
+    <![CDATA[
+      insert into mst_prefecture (
+        pref_id,
+        pref_name,
+        pref_capital)
+      values (
+        #{prefId},
+        #{prefName},
+        #{prefCapital})
+      on duplicate key update
+        pref_id = #{prefId},
+        pref_name = #{prefName},
+        pref_capital = #{prefCapital}
+    ]]>
   </insert>
+
+  <delete id="deleteAll">
+    <![CDATA[
+      truncate table mst_prefecture
+    ]]>
+  </delete>
 </mapper>
