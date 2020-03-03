@@ -4,9 +4,6 @@
   <!-- デフォルト設定読み込み -->
   <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-  <!-- 出力ログファイル名設定 -->
-  <property name="logFileName" value="app"/>
-
   <!--ローカル環境用設定 -->
   <springProfile name="default">
     <property name="logFilePath" value="./logs/"/>
@@ -21,6 +18,10 @@
   <springProfile name="production">
     <property name="logFilePath" value="./logs/production/"/>
   </springProfile>
+
+  <!-- 出力ログファイル名設定 -->
+  <property name="logFileName" value="app"/>
+  <property name="errorLogFileName" value="errorLog"/>
 
   <!-- コンソール出力 -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -45,8 +46,23 @@
     </encoder>
   </appender>
 
+  <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss" timeReference="contextBirth" />
+
+  <!-- エラーログのファイル書き出し -->
+  <appender name="ERROR_LOG" class="ch.qos.logback.core.FileAppender">
+    <file>${logFilePath}${errorLogFileName}_${bySecond}.log</file>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy/MM/dd HH:mm:ss} - %msg%n</pattern>
+    </encoder>
+    <param name="Append" value="false"/>
+  </appender>
+
   <!--rootログレベルと使用出力ルール -->
   <root level="INFO">
     <appender-ref ref="APPLICATION_LOG"/>
   </root>
+  <logger name="ErrorLogger" level="error" additivity="false">
+    <appender-ref ref="ERROR_LOG" />
+  </logger>
 </configuration>

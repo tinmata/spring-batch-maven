@@ -16,6 +16,11 @@ public class ImportUsersProcessor implements ItemProcessor<UsersEntity, UsersEnt
 
   @Override
   public UsersEntity process(UsersEntity usersEntity) throws Exception {
+
+    if (usersEntity.username.contains("003")) {
+      throw new Exception("Exception occurred by: " + usersEntity.username);
+    }
+
     return usersEntity;
   }
 }

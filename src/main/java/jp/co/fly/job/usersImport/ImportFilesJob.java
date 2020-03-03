@@ -30,7 +30,9 @@ public class ImportFilesJob extends JobConfig {
   @Autowired
   private ImportUsersJobListener jobListener;
   @Autowired
-  private ImportUserStepListener stepListener;
+  private ImportUserStepListener importUserStepListener;
+  @Autowired
+  private ImportUserStepSkipper importUserStepSkipper;
   @Autowired
   private ImportReader importReader;
   @Autowired
@@ -51,11 +53,14 @@ public class ImportFilesJob extends JobConfig {
   @Bean
   public Step importUserStep() throws Exception {
     return stepBuilderFactory.get("importUserStep")
-        .<UsersEntity, UsersEntity>chunk(10)
-        .listener(stepListener)
+        .<UsersEntity, UsersEntity>chunk(1000)
+        .listener(importUserStepListener)
         .reader(importReader.usersInputReader())
         .processor(importUsersProcessor)
         .writer(importWriter.usersWriter(sqlSessionFactory()))
+        // ビジネス例外スキップ処理
+        .faultTolerant()
+        .skipPolicy(importUserStepSkipper)
         .build();
   }
 
