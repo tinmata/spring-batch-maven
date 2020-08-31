@@ -23,7 +23,7 @@ public class UsersInfoEntity {
   public String username;
 
   @Column(name = "age")
-  public int age;
+  public String age;
 
   @Column(name = "tel")
   public String tel;

@@ -50,7 +50,7 @@ public class ExportUsersJob extends JobConfig {
   public Step exportUserStep01() throws Exception {
     return stepBuilderFactory.get("exportUserStep01")
         // チャンクによるステップ処理を実装
-        .<UsersEntity, ExportUsersEntity>chunk(5)
+        .<UsersEntity, ExportUsersEntity>chunk(100)
         // ステップ前後処理のリスナーを設定
         .listener(stepListener)
         // MyBatisとMapper定義でDBに接続

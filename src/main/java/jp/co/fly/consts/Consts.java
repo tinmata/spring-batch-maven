@@ -13,6 +13,11 @@ public class Consts {
    * CSVファイル項目区切り：半角カンマ
    */
   public static final String DELIMITER = ",";
+  
+  /**
+   * CSVファイル項目囲み文字：半角ダブルクォーテーション
+   */
+  public static final char ENCLOSE = '\"';
 
   /**
    * CSVファイル入力パス

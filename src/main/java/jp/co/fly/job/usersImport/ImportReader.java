@@ -1,6 +1,5 @@
 package jp.co.fly.job.usersImport;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import jp.co.fly.consts.Consts;
 import jp.co.fly.consts.FileHeader;
@@ -52,6 +51,7 @@ public class ImportReader {
         .resource(new FileSystemResource(USER_INPUT))
         .encoding("UTF-8")
         .delimited()
+        .quoteCharacter(Consts.ENCLOSE)
         .names(USER_IN_HEADER)
         .fieldSetMapper(new BeanWrapperFieldSetMapper<UsersEntity>() {{
           setTargetType(UsersEntity.class);
@@ -66,6 +66,7 @@ public class ImportReader {
         .resource(new FileSystemResource(USER_INFO_INPUT))
         .encoding("UTF-8")
         .delimited()
+        .quoteCharacter(Consts.ENCLOSE)
         .names(USER_INFO_IN_HEADER)
         .fieldSetMapper(new BeanWrapperFieldSetMapper<UsersInfoEntity>() {{
           setTargetType(UsersInfoEntity.class);
@@ -80,6 +81,7 @@ public class ImportReader {
         .resource(new FileSystemResource(PREF_INPUT))
         .encoding(StandardCharsets.UTF_8.name())
         .delimited()
+        .quoteCharacter(Consts.ENCLOSE)
         .names(PREF_IN_HEADER)
         .fieldSetMapper(new BeanWrapperFieldSetMapper<PrefectureEntity>() {{
           setTargetType(PrefectureEntity.class);

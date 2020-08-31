@@ -3,7 +3,7 @@ package jp.co.fly;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.ApplicationContext;
 
 /**
  * SpringBoot起動
@@ -24,7 +24,12 @@ public class BatchApplication {
    */
   public static void main(String[] args) throws Exception {
     try {
-      System.exit(SpringApplication.exit(SpringApplication.run(BatchApplication.class, args)));
+//      System.exit(SpringApplication.exit(SpringApplication.run(BatchApplication.class, args)));
+      log.info("start...{}", String.join(",", args));
+      ApplicationContext context = SpringApplication.run(BatchApplication.class, args);
+      int exitCode = SpringApplication.exit(context);
+      log.info("exit...{}", exitCode);
+      System.exit(exitCode);
     } catch (Exception e) {
       System.out.println("critical error!!");
       System.exit(1);

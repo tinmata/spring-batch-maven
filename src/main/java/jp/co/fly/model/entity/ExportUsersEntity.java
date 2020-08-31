@@ -18,7 +18,7 @@ public class ExportUsersEntity {
 
   public String lastName;
 
-  public int age;
+  public String age;
 
   public String tel;
 

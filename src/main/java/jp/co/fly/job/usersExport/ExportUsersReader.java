@@ -8,6 +8,7 @@ import jp.co.fly.model.mapper.UsersRowMapper;
 import jp.co.fly.repository.UsersRepository;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.batch.builder.MyBatisCursorItemReaderBuilder;
+import org.mybatis.spring.batch.builder.MyBatisPagingItemReaderBuilder;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.data.RepositoryItemReader;
@@ -33,9 +34,14 @@ public class ExportUsersReader {
    */
   @StepScope
   public ItemReader<UsersEntity> myBatisReader(SqlSessionFactory sqlSessionFactory) {
-    return new MyBatisCursorItemReaderBuilder<UsersEntity>()
+//    return new MyBatisCursorItemReaderBuilder<UsersEntity>()
+//        .sqlSessionFactory(sqlSessionFactory)
+//        .queryId("jp.co.fly.model.mapper.UserMapper.findAll")
+//        .build();
+    return new MyBatisPagingItemReaderBuilder<UsersEntity>()
         .sqlSessionFactory(sqlSessionFactory)
         .queryId("jp.co.fly.model.mapper.UserMapper.findAll")
+        .pageSize(100)
         .build();
   }
 

@@ -1,170 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
   <artifactId>spring-batch-maven</artifactId>
-
-  <!-- Output to jar format -->
-  <packaging>jar</packaging>
-
-  <version>1.0-SNAPSHOT</version>
-  <name>Spring Batch build by Maven</name>
-  <description/>
-  <url/>
-  <inceptionYear>2020</inceptionYear>
-
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.2.4.RELEASE</version>
-    <relativePath/>
-  </parent>
-
-  <repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Central repository</name>
-      <url>https://repo.maven.apache.org/maven2/</url>
-      <releases/>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-    <spring-ver>2.2.4.RELEASE</spring-ver>
-    <mybatis-ver>3.5.4</mybatis-ver>
-    <mybatis-spring-ver>2.0.3</mybatis-spring-ver>
-    <mybatis-spring-starter-ver>2.1.1</mybatis-spring-starter-ver>
-    <junit-ver>4.13</junit-ver>
-    <lombok-ver>1.18.10</lombok-ver>
-
-    <java-version>1.8</java-version>
-    <maven-compiler-plugin-ver>3.8.1</maven-compiler-plugin-ver>
-    <maven-jar-plugin-ver>3.1.0</maven-jar-plugin-ver>
-    <maven-dependency-plugin-ver>3.1.1</maven-dependency-plugin-ver>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit-ver}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-batch</artifactId>
-      <version>${spring-ver}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-jdbc</artifactId>
-      <version>${spring-ver}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>${mybatis-ver}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis-spring</artifactId>
-      <version>${mybatis-spring-ver}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
-      <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>${mybatis-spring-starter-ver}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok-ver}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- Libraries for PoC START -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <version>${spring-ver}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.18</version>
-    </dependency>
-    <!-- Libraries for PoC END -->
-  </dependencies>
-
-  <!-- Maven Build Setting -->
   <build>
     <!-- Set package name -->
     <finalName>spring-batch-maven</finalName>
     <plugins>
       <!-- Set a JDK compiler level -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin-ver}</version>
         <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
           <source>${java-version}</source>
           <target>${java-version}</target>
-          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-compiler-plugin-ver}</version>
       </plugin>
 
       <!-- Make this jar executable -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin-ver}</version>
         <configuration>
           <archive>
             <manifest>
               <!-- Jar file entry point -->
-              <mainClass>jp.co.fly.BatchApplication</mainClass>
               <addClasspath>true</addClasspath>
               <classpathPrefix>dependency-jars/</classpathPrefix>
+              <mainClass>jp.co.fly.BatchApplication</mainClass>
             </manifest>
           </archive>
         </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-jar-plugin-ver}</version>
       </plugin>
 
       <!-- Copy project dependency -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>${maven-dependency-plugin-ver}</version>
         <executions>
           <execution>
-            <id>copy-dependencies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
             <configuration>
               <!-- exclude junit, we need runtime dependency only -->
               <includeScope>runtime</includeScope>
-              <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+              <outputDirectory>${project.build.directory}/dependency-jars/
+              </outputDirectory>
             </configuration>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
           </execution>
         </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-dependency-plugin-ver}</version>
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <artifactId>junit</artifactId>
+      <groupId>junit</groupId>
+      <scope>test</scope>
+      <version>${junit-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-boot-starter-batch</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <version>${spring-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-batch-test</artifactId>
+      <groupId>org.springframework.batch</groupId>
+      <scope>test</scope>
+      <version>4.2.1.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+      <version>${spring-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <version>${spring-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>mybatis</artifactId>
+      <groupId>org.mybatis</groupId>
+      <version>${mybatis-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>mybatis-spring</artifactId>
+      <groupId>org.mybatis</groupId>
+      <version>${mybatis-spring-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <version>${mybatis-spring-starter-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <scope>provided</scope>
+      <version>${lombok-ver}</version>
+    </dependency>
+
+    <!-- Libraries for PoC START -->
+    <dependency>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <version>${spring-ver}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
+      <version>8.0.18</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.batch</groupId>
+      <artifactId>spring-batch-test</artifactId>
+    </dependency>
+    <!-- Libraries for PoC END -->
+  </dependencies>
+
+  <!-- Output to jar format -->
+  <description/>
+
+  <groupId>org.example</groupId>
+  <inceptionYear>2020</inceptionYear>
+  <modelVersion>4.0.0</modelVersion>
+  <name>Spring Batch build by Maven</name>
+  <packaging>jar</packaging>
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.2.4.RELEASE</version>
+  </parent>
+
+  <properties>
+    <java-version>1.8</java-version>
+    <junit-ver>4.13</junit-ver>
+
+    <lombok-ver>1.18.10</lombok-ver>
+    <maven-compiler-plugin-ver>3.8.1</maven-compiler-plugin-ver>
+    <maven-dependency-plugin-ver>3.1.1</maven-dependency-plugin-ver>
+    <maven-jar-plugin-ver>3.1.0</maven-jar-plugin-ver>
+    <mybatis-spring-starter-ver>2.1.1</mybatis-spring-starter-ver>
+    <mybatis-spring-ver>2.0.3</mybatis-spring-ver>
+
+    <mybatis-ver>3.5.4</mybatis-ver>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <spring-ver>2.2.4.RELEASE</spring-ver>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Maven Central repository</name>
+      <releases/>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+  </repositories>
+
+  <url/>
+
+  <!-- Maven Build Setting -->
+  <version>1.0-SNAPSHOT</version>
 </project>

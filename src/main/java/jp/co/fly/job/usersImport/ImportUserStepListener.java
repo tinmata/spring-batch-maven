@@ -14,6 +14,7 @@ import org.springframework.batch.core.annotation.AfterRead;
 import org.springframework.batch.core.annotation.AfterStep;
 import org.springframework.batch.core.annotation.AfterWrite;
 import org.springframework.batch.core.annotation.BeforeChunk;
+import org.springframework.batch.core.annotation.BeforeProcess;
 import org.springframework.batch.core.annotation.BeforeRead;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.annotation.BeforeWrite;
@@ -99,7 +100,7 @@ public class ImportUserStepListener {
    */
   @AfterChunkError
   public void afterChunkError(ChunkContext context) {
-    log.error("CHUNK exception occurred!");
+    log.error("CHUNK exception occurred!" + context);
   }
 
   /**
@@ -147,6 +148,7 @@ public class ImportUserStepListener {
    *
    * @param usersEntity item
    */
+  @BeforeProcess
   public void beforeProcess(UsersEntity usersEntity) {
     log.debug("PROCESS Start ...");
   }
