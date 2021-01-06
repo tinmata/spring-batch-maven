@@ -28,17 +28,17 @@ import org.springframework.context.annotation.Configuration;
 public class ExportUsersJob extends JobConfig {
 
   @Autowired
-  protected ExportUsersJobListener jobListener;
+  private ExportUsersJobListener jobListener;
   @Autowired
-  protected ExportUsersStepListener stepListener;
-  @Autowired
-  private UsersRepository usersRepository;
+  private ExportUsersStepListener stepListener;
   @Autowired
   private ExportUsersReader exportUsersReader;
   @Autowired
   private ExportUsersProcessor exportUsersProcessor;
   @Autowired
   private ExportUsersWriter exportUsersWriter;
+  @Autowired
+  private UsersRepository usersRepository;
 
   /**
    * ステップ定義

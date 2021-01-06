@@ -1,5 +1,7 @@
 package jp.co.fly.job.usersExport;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import jp.co.fly.model.entity.ExportUsersEntity;
 import jp.co.fly.model.entity.PrefectureEntity;
@@ -75,7 +77,10 @@ public class ExportUsersProcessor implements ItemProcessor<UsersEntity, ExportUs
   private ExportUsersEntity mybatisDbAccess(UsersEntity users, ExportUsersEntity userInfo) {
     // 定義したSQLを発行してデータを取得する
     // InterfaceとMapperのxml定義が必要
-    UsersInfoEntity usersInfoEntity = userInfoDao.findByKey(users.username);
+//    UsersInfoEntity usersInfoEntity = userInfoDao.findByKey(users.username);
+    Map<String, String> user = new HashMap<>();
+    user.put("uname", users.username);
+    UsersInfoEntity usersInfoEntity = userInfoDao.findByKey(user);
     // DB取得結果処理
     if (null != usersInfoEntity) {
       userInfo.age = usersInfoEntity.age;

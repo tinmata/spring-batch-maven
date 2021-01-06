@@ -2,6 +2,7 @@ package jp.co.fly.job;
 
 import javax.sql.DataSource;
 import jp.co.fly.consts.Consts;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -57,7 +58,7 @@ public class JobConfig {
     factoryBean.setMapperLocations(
         new PathMatchingResourcePatternResolver().getResources(Consts.MAPPER_RESOURCE_PATH));
     // 現在環境で設定されているDataSourceインスタンス取得
-    org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+    Configuration configuration = new Configuration();
     // インスタンス引数
     // ExecutorType.SIMPLE: 特別なことは行いません。ステートメントを実行するたびに新しいPreparedStatementを作成します。
     // ExecutorType.REUSE: PreparedStatementを再利用します。

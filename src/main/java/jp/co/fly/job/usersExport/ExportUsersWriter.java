@@ -7,7 +7,6 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
-import org.springframework.batch.item.file.transform.ExtractorLineAggregator;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +43,7 @@ public class ExportUsersWriter {
     fieldExtractor.setNames(FILE_HEADER);
 
     DelimitedLineAggregator<ExportUsersEntity> lineAggregator = new DelimitedLineAggregator<>();
-    lineAggregator.setDelimiter(Consts.DELIMITER);
+    lineAggregator.setDelimiter(Consts.DELIMITER_COMMA);
     lineAggregator.setFieldExtractor(fieldExtractor);
 
     FlatFileItemWriter<ExportUsersEntity> usersWriter = new FlatFileItemWriter<>();

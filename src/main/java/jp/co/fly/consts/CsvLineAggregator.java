@@ -15,16 +15,14 @@
  import org.springframework.util.StringUtils;
 
  /**
-  * CSV出力ファイルの項目区切りと囲み文字を設定します。
-  * 区切り文字は「,」とします。
-  * 項目囲み文字は["]とします。
+  * CSV出力ファイルの項目区切りと囲み文字を設定します。 区切り文字は「,」とします。 項目囲み文字は["]とします。
   */
  public class CsvLineAggregator<T> extends ExtractorLineAggregator<T> {
 
    @Override
    protected String doAggregate(Object[] fields) {
      return StringUtils.collectionToDelimitedString(Arrays.asList(fields),
-         Consts.DELIMITER, String.valueOf(Consts.ENCLOSE),
-         String.valueOf(Consts.ENCLOSE));
+         Consts.DELIMITER_VERTICAL, Consts.NO_ENCLOSE,
+         Consts.NO_ENCLOSE);
    }
  }
