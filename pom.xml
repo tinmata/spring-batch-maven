@@ -39,7 +39,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <spring-ver>2.2.4.RELEASE</spring-ver>
-    <mybatis-ver>3.5.4</mybatis-ver>
+    <mybatis-ver>3.5.6</mybatis-ver>
     <mybatis-spring-ver>2.0.3</mybatis-spring-ver>
     <mybatis-spring-starter-ver>2.1.1</mybatis-spring-starter-ver>
     <junit-ver>[4.13.1,)</junit-ver>
